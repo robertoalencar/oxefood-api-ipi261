@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefood.modelo.acesso.Usuario;
@@ -41,6 +42,13 @@ private final JwtService jwtService;
         loginResponse.put("tokenExpiresIn", jwtService.getExpirationTime());
 
         return loginResponse;
-    }    
+    }
+
+    @PostMapping("/user")
+    public Usuario getUser(@RequestParam(value = "username", required = true) String username) {
+
+        Usuario usuario = usuarioService.findByUsername(username);
+        return usuario;
+    }
 
 }
